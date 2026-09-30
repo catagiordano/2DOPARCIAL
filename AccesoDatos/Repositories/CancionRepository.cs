@@ -1,0 +1,35 @@
+﻿using AccesoDatos.Models;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace AccesoDatos.Repositories
+{
+    public class CancionRepository : GenericRepository<Cancion>
+    {
+        public List<Cancion> ObtenerCancionesMasLargas()
+        {
+            return _context.Cancion
+                           .OrderByDescending(c => c.DuracionSegundos)
+                           .ToList();
+        }
+        
+        public int ObtenerCantidadCanciones()
+        {
+            return _context.Cancion
+                           .Count();
+        }
+
+        public List<Cancion> ObtenerCancionesOrdenadasPorTitulo()
+        {
+            return _context.Cancion
+                           .OrderBy(c => c.Titulo)
+                           .ToList();
+        }
+
+        public bool ExistenCanciones()
+        {
+            return _context.Cancion
+                           .Any();
+        }
+    }
+}
